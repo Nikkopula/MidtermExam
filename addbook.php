@@ -1,14 +1,14 @@
 <?php
 
-$conn = new mysqli("localhost", "root", "", "test") or die (mysqli_error());
+$conn = new mysqli("localhost", "root", "", "library") or die (mysqli_error());
 
 if(isset($_POST['submit'])){
 $title = $_POST['title'];
-$page = $_POST['page'];
+$pages = $_POST['pages'];
 $author = $_POST['author'];
 $pubyear = $_POST['pubyear'];
 
-$conn->query("INSERT INTO `user` VALUES('', '$title', '$page', '$author', '$pubyear')") or die (mysqli_error());
+$conn->query("INSERT INTO `book` VALUES('', '$title', '$pages', '$author', '$pubyear')") or die (mysqli_error());
 $conn->close();
 echo "<script type='text/javascript'>alert('Successfully updated personal information!');</script>";
 echo "<script>document.location='addbook.php'</script>";
@@ -27,7 +27,7 @@ echo "<script>document.location='addbook.php'</script>";
 	<fieldset>
 		<legend>Book Information</legend>
 		<label>Title:</label> <input type="text" name="title" required /><br />
-		<label>Pages:</label> <input type="number" min=1 name="page" required /><br />
+		<label>Pages:</label> <input type="number" min=1 name="pages" required /><br />
 		<label>Author:</label> <input type="text" name="author" required /><br />
 		<label>Published Year:</label> <input type="text" name="pubyear" required />
         <div><br/></div>
@@ -46,12 +46,12 @@ echo "<script>document.location='addbook.php'</script>";
   </thead>
   <tbody>
     <?php 
-$query = $conn->query("select * from `user`") or die (mysqli_error());
+$query = $conn->query("select * from `book`") or die (mysqli_error());
 while ($fetch = $query->fetch_array()){
 ?>
 <tr>
     <td><?php echo $fetch['title']?></td>
-    <td><?php echo $fetch['page']?></td>
+    <td><?php echo $fetch['pages']?></td>
     <td><?php echo $fetch['author']?></td>
     <td><?php echo $fetch['pubyear']?></td>
     <td><a href="addbook.php?id=<?php echo $fetch['primarykey']?>" ><i class="icon-eye-open"></i>edit</a></td>
